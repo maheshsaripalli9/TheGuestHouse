@@ -7,22 +7,23 @@ import { MENU_ITEMS } from '../data/menu.js';
 import { openConciergeDrawer } from './reservations.js';
 
 const FALLBACK_ITEMS = [
-  { id: 'tomahawk', name: '38oz 30-Day Prime Tomahawk', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760c6d9a441e8f237efeb_444A5645.avif' },
+  { id: 'tomahawk', name: '38oz 30-Day Prime Tomahawk', image: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
   { id: 'caviar', name: 'Traditional Caviar Service', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e6a2e983921a019c3bc1fc_The%20Guest%20House-028-Edit-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.jpg' },
   { id: 'oysters', name: 'Coastal Oysters', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760e7b8353a26440fc469_444A6464.avif' },
-  { id: 'shrimp', name: 'Shrimp Cocktail', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760b73dfcaad6e7c7a5db_444A5453.avif' },
-  { id: 'hamachi', name: 'Hamachi Crudo', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760d69614a9ec851a7be8_444A6451.avif' },
-  { id: 'rigatoni', name: 'Spicy Rigatoni', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d7611e92d8f99e4f55fa72_444A6793.avif' },
-  { id: 'wagyu', name: 'Hot Rock Tableside Wagyu', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760c6d9a441e8f237efeb_444A5645.avif' },
+  { id: 'shrimp', name: 'Shrimp Cocktail', image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80' },
+  { id: 'hamachi', name: 'Hamachi Crudo', image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80' },
+  { id: 'rigatoni', name: 'Spicy Rigatoni', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
+  { id: 'wagyu', name: 'Hot Rock Tableside Wagyu', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
   { id: 'mushroom', name: 'The Magic Mushroom Cocktail', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d761642a9764c6d415767d_444A5548.avif' },
-  { id: 'salmon', name: 'Faroe Island Salmon', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760d69614a9ec851a7be8_444A6451.avif' },
+  { id: 'salmon', name: 'Faroe Island Salmon', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80' },
   { id: 'margarita', name: 'GH Velvet Margarita', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/69daeebce8bb681039705771_GH%20MARGARITA%202.jpeg' }
 ];
 
 export function initOrbitalMenu() {
   const stage = document.getElementById('orbitalStage');
   const teaserCard = document.getElementById('orbitalTeaser');
-  if (!stage) return;
+  if (!stage || stage.dataset.initialized === 'true') return;
+  stage.dataset.initialized = 'true';
 
   // Curated 10 Signature Highlights for smooth 3D orbital wheel
   let filteredItems = [];

@@ -116,8 +116,145 @@
     document.body.style.overflow = '';
   };
 
-  // 3. DOM EVENT LISTENERS
+  // 3. ORBITAL CIRCLE ANIMATION ENGINE
+  function initOrbitalMenu() {
+    var stage = document.getElementById('orbitalStage');
+    var teaserCard = document.getElementById('orbitalTeaser');
+    if (!stage || stage.dataset.initialized === 'true') return;
+    stage.dataset.initialized = 'true';
+
+    var items = [
+      { id: 'tomahawk', name: '38oz 30-Day Prime Tomahawk', image: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
+      { id: 'caviar', name: 'Traditional Caviar Service', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e6a2e983921a019c3bc1fc_The%20Guest%20House-028-Edit-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.jpg' },
+      { id: 'oysters', name: 'Coastal Oysters', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760e7b8353a26440fc469_444A6464.avif' },
+      { id: 'shrimp', name: 'Shrimp Cocktail', image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80' },
+      { id: 'hamachi', name: 'Hamachi Crudo', image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80' },
+      { id: 'rigatoni', name: 'Spicy Rigatoni', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
+      { id: 'wagyu', name: 'Hot Rock Tableside Wagyu', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
+      { id: 'mushroom', name: 'The Magic Mushroom Cocktail', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d761642a9764c6d415767d_444A5548.avif' },
+      { id: 'salmon', name: 'Faroe Island Salmon', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80' },
+      { id: 'margarita', name: 'GH Velvet Margarita', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/69daeebce8bb681039705771_GH%20MARGARITA%202.jpeg' }
+    ];
+
+    var currentAngle = 90;
+    var targetSpeed = 0.35;
+    var speed = targetSpeed;
+    var isHovered = false;
+    var isDragging = false;
+    var lastMouseY = 0;
+    var velocityY = 0;
+
+    function createDiscs() {
+      stage.innerHTML = '<div class="orbital-ring orbital-ring-outer"></div><div class="orbital-ring orbital-ring-inner"></div>';
+      items.forEach(function (item, index) {
+        var disc = document.createElement('div');
+        disc.className = 'dish-disc';
+        disc.dataset.id = item.id;
+        disc.dataset.index = index;
+        disc.innerHTML = '<img src="' + item.image + '" alt="' + item.name + '" class="dish-disc-img" />';
+        disc.addEventListener('click', function () {
+          var step = 360 / items.length;
+          currentAngle = 180 - (index * step);
+          updatePositions();
+          window.openConciergeDrawer();
+        });
+        stage.appendChild(disc);
+      });
+      updatePositions();
+    }
+
+    function updatePositions() {
+      var stageRect = stage.getBoundingClientRect();
+      var w = stageRect.width || stage.offsetWidth || 500;
+      var h = stageRect.height || stage.offsetHeight || 440;
+
+      var isMobile = window.innerWidth <= 768;
+      var isTablet = window.innerWidth <= 1024;
+
+      var radius = isMobile ? 130 : (isTablet ? 160 : 190);
+      var discSize = isMobile ? 64 : (isTablet ? 76 : 88);
+
+      var originX = w * (isMobile ? 0.50 : 0.60);
+      var originY = h / 2;
+
+      var step = 360 / items.length;
+      var closestDisc = null;
+      var minDistanceToApex = Infinity;
+
+      var discs = stage.querySelectorAll('.dish-disc');
+      discs.forEach(function (disc, index) {
+        var angle = (currentAngle + (index * step)) % 360;
+        if (angle < 0) angle += 360;
+
+        var rad = (angle * Math.PI) / 180;
+        var x = originX + radius * Math.cos(rad);
+        var y = originY + radius * Math.sin(rad);
+
+        var distFromApex = Math.abs(angle - 180);
+        if (distFromApex > 180) distFromApex = 360 - distFromApex;
+
+        var scale = 1.0;
+        if (distFromApex < 30) {
+          scale = 1.25 - (distFromApex / 30) * 0.25;
+        }
+
+        if (distFromApex < minDistanceToApex) {
+          minDistanceToApex = distFromApex;
+          closestDisc = items[index];
+        }
+
+        disc.style.transform = 'translate3d(' + (x - discSize / 2) + 'px, ' + (y - discSize / 2) + 'px, 0) scale(' + scale + ')';
+        if (distFromApex < 15) disc.classList.add('apex');
+        else disc.classList.remove('apex');
+      });
+
+      if (closestDisc && teaserCard) {
+        teaserCard.innerHTML = '<div class="teaser-info"><span class="teaser-name">' + closestDisc.name + '</span></div><button class="btn-haute btn-primary-gold" id="teaserReserveBtn">Reserve ✦</button>';
+        var btn = teaserCard.querySelector('#teaserReserveBtn');
+        if (btn) btn.addEventListener('click', function () { window.openConciergeDrawer(); });
+      }
+    }
+
+    function animate() {
+      if (!isHovered && !isDragging) {
+        currentAngle += speed;
+        speed += (targetSpeed - speed) * 0.05;
+      } else if (isDragging) {
+        speed = velocityY * 0.4;
+        currentAngle += speed;
+      }
+      updatePositions();
+      requestAnimationFrame(animate);
+    }
+
+    stage.addEventListener('mouseenter', function () { isHovered = true; });
+    stage.addEventListener('mouseleave', function () { isHovered = false; isDragging = false; });
+    stage.addEventListener('mousedown', function (e) { isDragging = true; lastMouseY = e.clientY; });
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      velocityY = e.clientY - lastMouseY;
+      lastMouseY = e.clientY;
+    });
+    window.addEventListener('mouseup', function () { isDragging = false; });
+
+    stage.addEventListener('touchstart', function (e) { isDragging = true; lastMouseY = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchmove', function (e) {
+      if (!isDragging) return;
+      velocityY = e.touches[0].clientY - lastMouseY;
+      lastMouseY = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', function () { isDragging = false; });
+
+    window.addEventListener('resize', updatePositions);
+
+    createDiscs();
+    requestAnimationFrame(animate);
+  }
+
+  // 4. DOM EVENT LISTENERS
   function setupApp() {
+    initOrbitalMenu();
+
     // 3-Bar Hamburger Button
     var btn = document.getElementById('hamburgerBtn');
     if (btn) {
