@@ -190,29 +190,33 @@
 .orbital-ring {
   position: absolute;
   top: 50%;
-  right: -120px;
-  transform: translateY(-50%);
+  left: 60%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1px dashed var(--gold-heritage);
+  border: 1.5px dashed var(--gold-heritage);
   pointer-events: none;
 }
 
 .orbital-ring-outer {
   width: 380px;
   height: 380px;
-  opacity: 0.45;
+  opacity: 0.65;
+  box-shadow: 0 0 25px rgba(140, 104, 48, 0.18);
 }
 
 .orbital-ring-inner {
-  width: 260px;
-  height: 260px;
-  border-color: var(--border-linen);
-  opacity: 0.35;
+  width: 250px;
+  height: 250px;
+  border-color: rgba(140, 104, 48, 0.45);
+  opacity: 0.5;
 }
 
 /* Dish Discs - Gold Bezel Medals */
 .dish-disc {
   position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
   width: 88px;
   height: 88px;
   border-radius: 50%;
