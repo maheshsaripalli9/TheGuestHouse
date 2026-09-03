@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Guest House | Social Steakhouse, Raw Bar & Wine Garden</title>
+  <meta name="description" content="A multi-sensory luxury dining experience in Austin, Las Vegas, and Scottsdale. Linz prime steaks, tableside A5 Wagyu, Royal Daurenki caviar, and theatrical mixology." />
+  
+  <!-- Favicon Icons -->
+  <link rel="shortcut icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763dc6860f2b0b71044eb_62e5b8502736d1162fa255b4_GH_Favicon.jpg" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763d6bedede1779206df4_62e5b8542cf3973f7c4d1948_GH_webclip.jpg" />
+
+  <!-- Preconnect Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/orbital-menu.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER NAVIGATION ==================== -->
+  <header class="header-haute">
+    <div class="container header-haute-inner">
+      <a href="index.html" class="brand-logo-link">
+        <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" class="brand-logo-svg" />
+      </a>
+
+      <nav class="nav-menu-desktop">
+        <a href="index.html" class="nav-link-haute active">Home</a>
+        <a href="austin/index.html" class="nav-link-haute">Austin</a>
+        <a href="las-vegas/index.html" class="nav-link-haute">Las Vegas</a>
+        <a href="scottsdale/index.html" class="nav-link-haute">Scottsdale</a>
+        <a href="menu/index.html" class="nav-link-haute">Menu</a>
+        <a href="private-events/index.html" class="nav-link-haute">Private Events</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-haute btn-primary-gold" data-reserve-trigger>✦ Reserve a Table</button>
+      </div>
+
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="event.stopPropagation(); window.toggleMobileNav && window.toggleMobileNav(); return false;" aria-label="Open Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;"></div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-linen); margin-bottom: 1.5rem;">
+      <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House" class="brand-logo-svg" style="height: 26px; filter: brightness(0);" />
+      <button class="mobile-drawer-close-btn" id="drawerCloseX" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;" aria-label="Close Navigation Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link active">Home</a>
+      <a href="austin/index.html" class="mobile-nav-link">Austin, TX</a>
+      <a href="las-vegas/index.html" class="mobile-nav-link">Las Vegas, NV</a>
+      <a href="scottsdale/index.html" class="mobile-nav-link">Scottsdale, AZ</a>
+      <a href="menu/index.html" class="mobile-nav-link">Menu & Wine List</a>
+      <a href="private-events/index.html" class="mobile-nav-link">Private Events</a>
+    </nav>
+    <div style="margin-top: auto; padding-top: 2rem;">
+      <button class="btn-haute btn-primary-gold" style="width: 100%; padding: 0.95rem;" data-reserve-trigger>✦ Reserve Table</button>
+      <div style="margin-top: 1.25rem; text-align: center;">
+        <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" class="social-icon-link" style="font-size: 0.85rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          <span>@welcometgh</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==================== HERO WITH FLUSH-RIGHT ORBITAL DIAL ==================== -->
+    <section class="hero-section">
+      <!-- Theme-Matched Restaurant Ambiance Background -->
+      <div class="hero-bg-wrapper">
+        <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760a537d59632f0fdd36c_665b87c9e4ddba6ce2c4dc5c_The%20Guest%20House-006-Edit-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.webp" alt="The Guest House Restaurant Ambiance" class="hero-bg-img" />
+        <div class="hero-bg-overlay"></div>
+      </div>
+
+      <div class="hero-split-layout">
+        
+        <!-- Left Column: Value Proposition -->
+        <div class="hero-left-col">
+          <div class="hero-location-meta eyebrow">
+            <span>AUSTIN</span> ✦ <span>LAS VEGAS</span> ✦ <span>SCOTTSDALE</span>
+          </div>
+          <h1 class="hero-headline">
+            <span class="roman-upper">DINING REDEFINED</span>
+            <span class="cormorant-gold-italic">Social Dining & Wine Garden</span>
+          </h1>
+          <p class="hero-descriptor">
+            The Guest House brings a blend of comfort and fine dining. Inviting you to a place where familiar tastes are reinvented, where meals become celebrations, and every guest is family.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-haute btn-primary-gold" data-reserve-trigger>✦ Reserve a Table</button>
+            <a href="#highlights" class="btn-haute btn-secondary-linen">Our Menu ↓</a>
+          </div>
+        </div>
+
+        <!-- Right Column: Flush-Right Semi-Circle Orbital Stage -->
+        <div class="hero-right-col">
+          <div class="orbital-stage" id="orbitalStage"></div>
+          <div class="orbital-teaser-card" id="orbitalTeaser"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== MARQUEE STRIP ==================== -->
+    <section class="marquee-section">
+      <div class="marquee-track">
+        <div class="marquee-item">
+          38oz 30-Day Linz Tomahawk <span class="marquee-star">✦</span>
+          Royal Daurenki Caviar Service <span class="marquee-star">✦</span>
+          Tableside Ishiyaki A5 Wagyu <span class="marquee-star">✦</span>
+          The Magic Mushroom Cocktail <span class="marquee-star">✦</span>
+          Sunday Brunch DJs <span class="marquee-star">✦</span>
+          Velvet Parlours <span class="marquee-star">✦</span>
+        </div>
+        <div class="marquee-item">
+          38oz 30-Day Linz Tomahawk <span class="marquee-star">✦</span>
+          Royal Daurenki Caviar Service <span class="marquee-star">✦</span>
+          Tableside Ishiyaki A5 Wagyu <span class="marquee-star">✦</span>
+          The Magic Mushroom Cocktail <span class="marquee-star">✦</span>
+          Sunday Brunch DJs <span class="marquee-star">✦</span>
+          Velvet Parlours <span class="marquee-star">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE THREE SANCTUARIES ==================== -->
+    <section class="sanctuaries-section" id="sanctuaries">
+      <div class="container">
+        <div class="section-header-center">
+          <div class="section-eyebrow eyebrow">OUR DESTINATIONS</div>
+          <h2>Social Dining Locations</h2>
+          <p>Distinct social dining destinations operating across Texas, Nevada, and Arizona.</p>
+        </div>
+
+        <div class="sanctuaries-grid">
+          <!-- Austin Card -->
+          <article class="sanctuary-card">
+            <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760a537d59632f0fdd36c_665b87c9e4ddba6ce2c4dc5c_The%20Guest%20House-006-Edit-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.webp" alt="The Guest House Austin" class="sanctuary-bg-img" loading="lazy" />
+            <div class="sanctuary-overlay"></div>
+            <div class="sanctuary-content-top">
+              <span class="sanctuary-badge">Austin, TX</span>
+            </div>
+            <div class="sanctuary-content-bottom">
+              <h3 class="sanctuary-city">Austin</h3>
+              <p class="sanctuary-address"><a href="https://maps.app.goo.gl/WwJ31BrK1akBCX648" target="_blank" rel="noopener" style="text-decoration: underline; color: #FFFFFF;">110 San Antonio St Ste R140, Austin, TX 78701 ↗</a><br /><a href="tel:5127200000" style="text-decoration: underline; color: #FFFFFF;">(512) 720-0000</a></p>
+              <div class="sanctuary-actions">
+                <button class="btn-haute btn-primary-gold" data-reserve-trigger data-location="austin">Reserve Table</button>
+                <a href="austin/index.html" class="btn-haute btn-secondary-linen">Explore Location</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Las Vegas Card -->
+          <article class="sanctuary-card">
+            <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d76053c435083e21e3f9d6_657e39003b5153896e223fac_image39.avif" alt="The Guest House Las Vegas" class="sanctuary-bg-img" loading="lazy" />
+            <div class="sanctuary-overlay"></div>
+            <div class="sanctuary-content-top">
+              <span class="sanctuary-badge">Las Vegas, NV</span>
+            </div>
+            <div class="sanctuary-content-bottom">
+              <h3 class="sanctuary-city">Las Vegas</h3>
+              <p class="sanctuary-address"><a href="https://maps.app.goo.gl/9KSqwZ1NooZdtnq78" target="_blank" rel="noopener" style="text-decoration: underline; color: #FFFFFF;">6635 S Las Vegas Blvd Ste 125, Las Vegas, NV 89119 ↗</a><br /><a href="tel:7023030000" style="text-decoration: underline; color: #FFFFFF;">(702) 303-0000</a></p>
+              <div class="sanctuary-actions">
+                <button class="btn-haute btn-primary-gold" data-reserve-trigger data-location="las-vegas">Reserve Table</button>
+                <a href="las-vegas/index.html" class="btn-haute btn-secondary-linen">Explore Location</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Scottsdale Card -->
+          <article class="sanctuary-card">
+            <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67bb6387df4aa62305345cd9_annie-spratt-_0F_03SEF-M-unsplash%20(1).webp" alt="The Guest House Scottsdale" class="sanctuary-bg-img" loading="lazy" />
+            <div class="sanctuary-overlay"></div>
+            <div class="sanctuary-content-top">
+              <span class="sanctuary-badge">Scottsdale, AZ</span>
+            </div>
+            <div class="sanctuary-content-bottom">
+              <h3 class="sanctuary-city">Scottsdale</h3>
+              <p class="sanctuary-address"><a href="https://maps.app.goo.gl/5GWeJBmT777DQLeB9" target="_blank" rel="noopener" style="text-decoration: underline; color: #FFFFFF;">15301 N Scottsdale Rd, Scottsdale, AZ 85254 ↗</a><br /><a href="tel:4806254942" style="text-decoration: underline; color: #FFFFFF;">(480) 625-4942</a></p>
+              <div class="sanctuary-actions">
+                <button class="btn-haute btn-primary-gold" data-reserve-trigger data-location="scottsdale">Reserve Table</button>
+                <a href="scottsdale/index.html" class="btn-haute btn-secondary-linen">Explore Location</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SIGNATURE HIGHLIGHTS ==================== -->
+    <section class="repertoire-section" id="highlights">
+      <div class="container">
+        <div class="section-header-center">
+          <div class="section-eyebrow eyebrow">NEW AMERICAN CUISINE</div>
+          <h2>Signature Menu Highlights</h2>
+          <p>Hand-selected signature creations crafted for sensory indulgence across our open wood flame grill and raw bar.</p>
+        </div>
+
+        <div class="repertoire-grid">
+          <!-- Act I -->
+          <article class="repertoire-card">
+            <div class="repertoire-img-frame">
+              <span class="repertoire-act-tag">WOOD FIRE</span>
+              <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e6a3d9ddf27ba2f3fb5619_The%20Guest%20House-004-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.jpg" alt="30-Day Wet Aged Linz Tomahawk" loading="lazy" />
+            </div>
+            <div class="repertoire-body">
+              <div class="repertoire-title-row">
+                <h3 class="repertoire-title">30-Day Linz Tomahawk</h3>
+              </div>
+              <p class="repertoire-desc">38oz Center-cut prime ribeye roasted over white oak embers with smoked bone marrow butter.</p>
+              <div class="repertoire-pairing">
+                <span>Sommelier Pairing:</span> Caymus Special Selection Cabernet
+              </div>
+            </div>
+          </article>
+
+          <!-- Act II -->
+          <article class="repertoire-card">
+            <div class="repertoire-img-frame">
+              <span class="repertoire-act-tag">RAW BAR</span>
+              <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760e7b8353a26440fc469_444A6464.avif" alt="Tuna & Caviar Cones" loading="lazy" />
+            </div>
+            <div class="repertoire-body">
+              <div class="repertoire-title-row">
+                <h3 class="repertoire-title">Tuna & Caviar Cones</h3>
+              </div>
+              <p class="repertoire-desc">Yellowfin tuna tartare in toasted sesame cones with glistening Royal Daurenki caviar.</p>
+              <div class="repertoire-pairing">
+                <span>Sommelier Pairing:</span> Billecart-Salmon Brut Rosé
+              </div>
+            </div>
+          </article>
+
+          <!-- Act III -->
+          <article class="repertoire-card">
+            <div class="repertoire-img-frame">
+              <span class="repertoire-act-tag">COCKTAILS</span>
+              <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d761642a9764c6d415767d_444A5548.avif" alt="The Magic Mushroom Cocktail" loading="lazy" />
+            </div>
+            <div class="repertoire-body">
+              <div class="repertoire-title-row">
+                <h3 class="repertoire-title">The Magic Mushroom</h3>
+              </div>
+              <p class="repertoire-desc">Casa Dragones Blanco Tequila, passion fruit, lime, and theatrical aromatic citrus vapor cloud.</p>
+              <div class="repertoire-pairing">
+                <span>Ritual:</span> Tableside Smoke Vapor Ceremony
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Explore Full Menu CTA -->
+        <div style="text-align: center; margin-top: 3.5rem;">
+          <a href="menu/index.html" class="btn-haute btn-primary-gold" style="padding: 1.1rem 2.5rem; font-size: 0.85rem; letter-spacing: 0.12em; box-shadow: 0 8px 28px rgba(140, 104, 48, 0.28);">
+            ✦ EXPLORE FULL MENU & WINE LIST →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SEEN AT THE GUEST HOUSE ==================== -->
+    <section class="social-feed-section" id="socialFeed">
+      <div class="container" style="margin-bottom: 2rem;">
+        <div class="section-header-center">
+          <div class="section-eyebrow eyebrow">@WELCOMETGH</div>
+          <h2>Seen At The Guest House</h2>
+          <p>Moments of golden midnight, tableside theater, and social atmosphere captured by our guests.</p>
+        </div>
+      </div>
+
+      <div class="social-reel-viewport" id="socialFeedViewport">
+        <div class="social-reel-track" id="socialFeedTrack"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer-haute">
+    <div class="container">
+      <div class="footer-haute-grid">
+        <div>
+          <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" style="height: 34px; margin-bottom: 1.15rem;" />
+          <p style="color: rgba(255, 255, 255, 0.65); max-width: 320px; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem;">
+            A multi-sensory social steakhouse, raw bar, and cocktail sanctuary operating across Austin, Las Vegas, and Scottsdale.
+          </p>
+          <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" aria-label="Follow The Guest House on Instagram" class="social-icon-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>Follow @welcometgh</span>
+          </a>
+        </div>
+        <div>
+          <div class="footer-col-title">Locations</div>
+          <ul class="footer-links">
+            <li><a href="austin/index.html">Austin Sanctuary</a></li>
+            <li><a href="las-vegas/index.html">Las Vegas Sanctuary</a></li>
+            <li><a href="scottsdale/index.html">Scottsdale Sanctuary</a></li>
+            <li><a href="private-events/index.html">Private Events</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Menu</div>
+          <ul class="footer-links">
+            <li><a href="menu/index.html">Our Menu</a></li>
+            <li><a href="menu/index.html#raw-bar">Raw Bar & Caviar</a></li>
+            <li><a href="menu/index.html#butchers-prime">Butcher's Best</a></li>
+            <li><a href="menu/index.html#cocktails">Cocktails</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Reservations</div>
+          <ul class="footer-links">
+            <li><a href="#" data-reserve-trigger>OpenTable Reservations</a></li>
+            <li><a href="mailto:info@welcometgh.com">Press & Inquiries</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>© Copyright The Guest House 2026. All Rights Reserved.</div>
+        <div style="color: rgba(255,255,255,0.45); font-size: 0.82rem;">Social Steakhouse & Wine Garden</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Sticky Reservation Bar -->
+  <div class="mobile-sticky-reserve-bar">
+    <a href="tel:5127200000" class="btn-haute btn-secondary-linen" style="flex: 1; padding: 0.75rem;">📞 Call</a>
+    <button class="btn-haute btn-primary-gold" id="mobileStickyReserve" style="flex: 2; padding: 0.75rem;">✦ Reserve OpenTable</button>
+  </div>
+
+  <script src="js/bundle.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

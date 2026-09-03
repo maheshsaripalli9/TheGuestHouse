@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu | The Guest House - Social Dining & Wine Garden</title>
+  <meta name="description" content="Discover a curated selection of New American classics at The Guest House: Linz prime steaks, raw bar, tableside Wagyu, and craft cocktails." />
+  
+  <!-- Favicon Icons -->
+  <link rel="shortcut icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763dc6860f2b0b71044eb_62e5b8502736d1162fa255b4_GH_Favicon.jpg" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763d6bedede1779206df4_62e5b8542cf3973f7c4d1948_GH_webclip.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <link rel="stylesheet" href="../css/design-system.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER NAVIGATION ==================== -->
+  <header class="header-haute">
+    <div class="container-haute header-haute-inner">
+      <a href="../index.html" class="brand-logo-link">
+        <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" class="brand-logo-svg" />
+      </a>
+
+      <nav class="nav-menu-desktop">
+        <a href="../index.html" class="nav-link-haute">Home</a>
+        <a href="../austin/index.html" class="nav-link-haute">Austin</a>
+        <a href="../las-vegas/index.html" class="nav-link-haute">Las Vegas</a>
+        <a href="../scottsdale/index.html" class="nav-link-haute">Scottsdale</a>
+        <a href="index.html" class="nav-link-haute active">Menu</a>
+        <a href="../private-events/index.html" class="nav-link-haute">Private Events</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-haute btn-primary-gold" data-reserve-trigger>✦ Reserve Table</button>
+      </div>
+
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="event.stopPropagation(); window.toggleMobileNav && window.toggleMobileNav(); return false;" aria-label="Open Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;"></div>
+
+  <!-- Mobile Drawer Navigation -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-linen); margin-bottom: 1.5rem;">
+      <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House" class="brand-logo-svg" style="height: 26px; filter: brightness(0);" />
+      <button class="mobile-drawer-close-btn" id="drawerCloseX" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;" aria-label="Close Navigation Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="../index.html" class="mobile-nav-link">Home</a>
+      <a href="../austin/index.html" class="mobile-nav-link">Austin, TX</a>
+      <a href="../las-vegas/index.html" class="mobile-nav-link">Las Vegas, NV</a>
+      <a href="../scottsdale/index.html" class="mobile-nav-link">Scottsdale, AZ</a>
+      <a href="index.html" class="mobile-nav-link active">Menu & Wine List</a>
+      <a href="../private-events/index.html" class="mobile-nav-link">Private Events</a>
+    </nav>
+    <div style="margin-top: auto; padding-top: 2rem;">
+      <button class="btn-haute btn-primary-gold" style="width: 100%; padding: 0.95rem;" data-reserve-trigger>✦ Reserve Table</button>
+      <div style="margin-top: 1.25rem; text-align: center;">
+        <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" class="social-icon-link" style="font-size: 0.85rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          <span>@welcometgh</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    
+    <section class="menu-ledger-section">
+      <div class="container-haute">
+        
+        <!-- Header Title matching official site -->
+        <div class="menu-ledger-header">
+          <div class="eyebrow text-gold" style="margin-bottom: 0.5rem;">A CURATED SELECTION OF NEW AMERICAN CLASSICS</div>
+          <h1>Menu</h1>
+          <p>Discover a social dining experience where dinner brings bold, seasonal dishes, Sunday brunch offers a playful take on classics, and cocktails are crafted to surprise and delight.</p>
+        </div>
+
+        <!-- Sticky Category Filter Bar -->
+        <div class="sticky-filter-bar" id="menuStickyBar">
+          <div class="category-pills-row" id="menuCategoryPills">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Dietary Filter Strip -->
+          <div class="dietary-strip" id="dietaryStrip">
+            <button class="dietary-pill active" data-diet="all">All Diets</button>
+            <button class="dietary-pill" data-diet="GF">GF (Gluten Free)</button>
+            <button class="dietary-pill" data-diet="V">V (Vegetarian)</button>
+            <button class="dietary-pill" data-diet="DF">DF (Dairy Free)</button>
+          </div>
+        </div>
+
+        <!-- Menu Items Grid -->
+        <div class="menu-items-grid" id="menuItemsGrid">
+          <!-- Rendered dynamically by script below -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== REDESIGNED LUXURY FOOTER ==================== -->
+  <footer class="footer-haute">
+    <div class="container-haute">
+      <div class="footer-haute-grid">
+        <div>
+          <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" style="height: 36px; margin-bottom: 1.15rem;" />
+          <p style="color: rgba(255,255,255,0.7); max-width: 320px; font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.15rem;">
+            Social Steakhouse, Raw Bar & Wine Garden.
+          </p>
+          <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" aria-label="Follow The Guest House on Instagram" class="social-icon-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>Follow @welcometgh</span>
+          </a>
+        </div>
+        <div class="footer-links">
+          <h4 style="color: var(--gold-champagne); font-family: var(--font-eyebrow); font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 1.25rem;">DESTINATIONS</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <a href="../austin/index.html">Austin, TX</a>
+            <a href="../las-vegas/index.html">Las Vegas, NV</a>
+            <a href="../scottsdale/index.html">Scottsdale, AZ</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 style="color: var(--gold-champagne); font-family: var(--font-eyebrow); font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 1.25rem;">EXPLORE</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <a href="../index.html">Flagship Homepage</a>
+            <a href="index.html" style="color: var(--gold-champagne);">Menu & Wine List</a>
+            <a href="../private-events/index.html">Private Events</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <div>© Copyright The Guest House 2026. All Rights Reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/bundle.js"></script>
+  <!-- Script for Client-Side Ledger Filtering -->
+  <script type="module">
+    import { MENU_CATEGORIES, MENU_ITEMS } from '../data/menu.js';
+    import { initLuxuryCursor } from '../js/luxury-cursor.js';
+    import { initReservations } from '../js/reservations.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initLuxuryCursor();
+      initReservations();
+
+      const categoryContainer = document.getElementById('menuCategoryPills');
+      const grid = document.getElementById('menuItemsGrid');
+      const dietaryStrip = document.getElementById('dietaryStrip');
+
+      let currentCategory = 'all';
+      let currentDiet = 'all';
+
+      // Render Categories
+      categoryContainer.innerHTML = MENU_CATEGORIES.map(cat => `
+        <button class="category-pill ${cat.id === currentCategory ? 'active' : ''}" data-cat="${cat.id}">
+          ${cat.label}
+        </button>
+      `).join('');
+
+      // Render Menu Items
+      function renderLedger() {
+        let filtered = MENU_ITEMS;
+        if (currentCategory !== 'all') {
+          filtered = filtered.filter(item => item.category === currentCategory);
+        }
+        if (currentDiet !== 'all') {
+          filtered = filtered.filter(item => item.dietary.includes(currentDiet));
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; background: #FFFFFF; border: 1px solid var(--border-linen); border-radius: 4px;">
+              <h3 style="font-family: var(--font-display); font-size: 1.8rem; color: var(--text-primary); margin-bottom: 0.5rem;">No Items Found</h3>
+              <p style="color: var(--text-muted);">Try selecting a different dietary filter or category.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(item => `
+          <article class="menu-ledger-item">
+            <img src="${item.image}" alt="${item.name}" class="menu-item-thumb" loading="lazy" />
+            <div class="menu-item-content">
+              <div>
+                <div class="menu-item-header">
+                  <h3 class="menu-item-name">${item.name}</h3>
+                  <span class="menu-item-price">$${item.price}</span>
+                </div>
+                <p class="menu-item-desc">${item.description}</p>
+              </div>
+              <div class="menu-item-tags">
+                ${item.dietary.map(d => `<span class="tag-badge">${d}</span>`).join('')}
+                ${item.pairing ? `<span class="tag-badge" style="background-color: var(--gold-light-glow); border-color: var(--gold-heritage);">${item.pairing}</span>` : ''}
+              </div>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // Event Listeners
+      categoryContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.category-pill');
+        if (!btn) return;
+        categoryContainer.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.cat;
+        renderLedger();
+      });
+
+      dietaryStrip.addEventListener('click', (e) => {
+        const btn = e.target.closest('.dietary-pill');
+        if (!btn) return;
+        dietaryStrip.querySelectorAll('.dietary-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentDiet = btn.dataset.diet;
+        renderLedger();
+      });
+
+      renderLedger();
+    });
+  </script>
+</body>
+</html>

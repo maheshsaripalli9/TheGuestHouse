@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Guest House | Las Vegas, NV Sanctuary</title>
+  <meta name="description" content="Welcome to The Guest House Las Vegas located on Las Vegas Blvd. High-energy social dining, live Sunday brunch DJs, raw bar display, and tableside A5 Wagyu." />
+  
+  <!-- Favicon Icons -->
+  <link rel="shortcut icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763dc6860f2b0b71044eb_62e5b8502736d1162fa255b4_GH_Favicon.jpg" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d763d6bedede1779206df4_62e5b8542cf3973f7c4d1948_GH_webclip.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <link rel="stylesheet" href="../css/design-system.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+</head>
+<body>
+  <!-- ==================== HEADER NAVIGATION ==================== -->
+  <header class="header-haute">
+    <div class="container header-haute-inner">
+      <a href="../index.html" class="brand-logo-link">
+        <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" class="brand-logo-svg" />
+      </a>
+
+      <nav class="nav-menu-desktop">
+        <a href="../index.html" class="nav-link-haute">Home</a>
+        <a href="../austin/index.html" class="nav-link-haute">Austin</a>
+        <a href="index.html" class="nav-link-haute active">Las Vegas</a>
+        <a href="../scottsdale/index.html" class="nav-link-haute">Scottsdale</a>
+        <a href="../menu/index.html" class="nav-link-haute">Menu</a>
+        <a href="../private-events/index.html" class="nav-link-haute">Private Events</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-haute btn-primary-gold" data-reserve-trigger data-location="las-vegas">✦ Reserve Table</button>
+      </div>
+
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="event.stopPropagation(); window.toggleMobileNav && window.toggleMobileNav(); return false;" aria-label="Open Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;"></div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-linen); margin-bottom: 1.5rem;">
+      <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House" class="brand-logo-svg" style="height: 26px; filter: brightness(0);" />
+      <button class="mobile-drawer-close-btn" id="drawerCloseX" onclick="event.stopPropagation(); window.closeMobileNav && window.closeMobileNav(); return false;" aria-label="Close Navigation Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="pointer-events: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="../index.html" class="mobile-nav-link">Home</a>
+      <a href="../austin/index.html" class="mobile-nav-link">Austin, TX</a>
+      <a href="index.html" class="mobile-nav-link active">Las Vegas, NV</a>
+      <a href="../scottsdale/index.html" class="mobile-nav-link">Scottsdale, AZ</a>
+      <a href="../menu/index.html" class="mobile-nav-link">Menu & Wine List</a>
+      <a href="../private-events/index.html" class="mobile-nav-link">Private Events</a>
+    </nav>
+    <div style="margin-top: auto; padding-top: 2rem;">
+      <button class="btn-haute btn-primary-gold" style="width: 100%; padding: 0.95rem;" data-reserve-trigger data-location="las-vegas">✦ Reserve Table</button>
+      <div style="margin-top: 1.25rem; text-align: center;">
+        <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" class="social-icon-link" style="font-size: 0.85rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          <span>@welcometgh</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main style="padding-top: var(--header-height);">
+    <!-- Hero Banner -->
+    <section class="subpage-hero-section">
+      <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d76053c435083e21e3f9d6_657e39003b5153896e223fac_image39.avif" alt="The Guest House Las Vegas" class="subpage-hero-bg" />
+      <div class="subpage-hero-content">
+        <div class="eyebrow" style="color: var(--gold-champagne); margin-bottom: 0.75rem;">LAS VEGAS BLVD</div>
+        <h1>THE GUEST HOUSE LAS VEGAS</h1>
+        <p>
+          High-energy social dining, live Sunday brunch DJs, raw bar display, velvet lounge parlours, and tableside A5 Wagyu rituals.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-haute btn-primary-gold" data-reserve-trigger data-location="las-vegas">✦ Reserve Table</button>
+          <a href="../menu/index.html" class="btn-haute btn-secondary-linen">View Vegas Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Details Grid -->
+    <section style="padding: 4rem 0 6rem; background-color: var(--canvas-bg);">
+      <div class="container">
+        <div class="sanctuary-details-grid">
+          <div>
+            <div class="eyebrow text-gold" style="margin-bottom: 0.5rem;">LOCATION DETAILS</div>
+            <h2 style="margin-bottom: 1.25rem;">South Las Vegas Boulevard</h2>
+            <p>Situated along South Las Vegas Blvd, our Las Vegas location combines high-octane luxury with comfortable intimacy. Enjoy live Sunday DJ brunches, tableside Wagyu seared on hot volcanic stones, and velvet cocktail lounges.</p>
+            
+            <div style="margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
+              <div><strong>Address:</strong> <a href="https://maps.app.goo.gl/9KSqwZ1NooZdtnq78" target="_blank" rel="noopener" style="text-decoration: underline; color: var(--gold-heritage);">6635 S Las Vegas Blvd Ste 125, Las Vegas, NV 89119 ↗</a></div>
+              <div><strong>Telephone:</strong> <a href="tel:7023030000" style="text-decoration: underline; color: var(--gold-heritage);">(702) 303-0000</a></div>
+              <div><strong>Email:</strong> <a href="mailto:vegas@welcometgh.com" style="text-decoration: underline; color: var(--gold-heritage);">vegas@welcometgh.com</a></div>
+              <div><strong>Sunday Brunch:</strong> 11:00 AM – 3:00 PM with Live DJ</div>
+            </div>
+          </div>
+
+          <div class="sanctuary-hours-box">
+            <h3 style="font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-linen); padding-bottom: 0.75rem;">Hours & Operation</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div class="sanctuary-hours-row"><span>Monday – Thursday</span><strong>5:00 PM – 11:00 PM</strong></div>
+              <div class="sanctuary-hours-row"><span>Friday – Saturday</span><strong>5:00 PM – 12:00 AM</strong></div>
+              <div class="sanctuary-hours-row"><span>Sunday Brunch</span><strong>11:00 AM – 3:00 PM</strong></div>
+              <div class="sanctuary-hours-row"><span>Sunday Dinner</span><strong>5:00 PM – 10:00 PM</strong></div>
+            </div>
+            <button class="btn-haute btn-primary-gold" style="width: 100%; margin-top: 2rem;" data-reserve-trigger data-location="las-vegas">✦ Reserve Table</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== REDESIGNED LUXURY FOOTER ==================== -->
+  <footer class="footer-haute">
+    <div class="container">
+      <div class="footer-haute-grid">
+        <div>
+          <img src="https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e69d474b2d6290e8d9e5f3_GH_Logo_tagline_wht%201.svg" alt="The Guest House Logo" style="height: 36px; margin-bottom: 1.15rem;" />
+          <p style="color: rgba(255,255,255,0.7); max-width: 320px; font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.15rem;">
+            Social Steakhouse, Raw Bar & Wine Garden.
+          </p>
+          <a href="https://www.instagram.com/welcometgh" target="_blank" rel="noopener" aria-label="Follow The Guest House on Instagram" class="social-icon-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>Follow @welcometgh</span>
+          </a>
+        </div>
+        <div class="footer-links">
+          <h4 style="color: var(--gold-champagne); font-family: var(--font-eyebrow); font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 1.25rem;">DESTINATIONS</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <a href="../austin/index.html">Austin, TX</a>
+            <a href="index.html" style="color: var(--gold-champagne);">Las Vegas, NV</a>
+            <a href="../scottsdale/index.html">Scottsdale, AZ</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 style="color: var(--gold-champagne); font-family: var(--font-eyebrow); font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 1.25rem;">EXPLORE</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <a href="../index.html">Flagship Homepage</a>
+            <a href="../menu/index.html">Menu & Wine List</a>
+            <a href="../private-events/index.html">Private Events</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <div>© Copyright The Guest House 2026. All Rights Reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/bundle.js"></script>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>
