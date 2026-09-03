@@ -331,12 +331,10 @@
   .orbital-ring-outer {
     width: 320px;
     height: 320px;
-    right: -60px;
   }
   .orbital-ring-inner {
     width: 210px;
     height: 210px;
-    right: -60px;
   }
   .dish-disc {
     width: 76px;
@@ -351,10 +349,34 @@
   }
 }
 
-/* Mobile Screens (<= 768px): Hide 3D Wheel & Center Luminous Glass Card */
+/* Mobile Screens (<= 768px) */
 @media (max-width: 768px) {
+  .hero-split-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 1.5rem;
+  }
   .hero-right-col {
-    display: none !important; /* Zero wheel on mobile phones for 1-fold hero clarity */
+    display: flex !important;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+  .orbital-stage {
+    height: 320px;
+  }
+  .orbital-ring-outer {
+    width: 260px;
+    height: 260px;
+  }
+  .orbital-ring-inner {
+    width: 180px;
+    height: 180px;
+  }
+  .dish-disc {
+    width: 64px;
+    height: 64px;
   }
   .hero-split-layout {
     grid-template-columns: 1fr;

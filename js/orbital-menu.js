@@ -81,11 +81,13 @@ export function initOrbitalMenu() {
   // Update Disc Positions on Semi-Circle Arc
   function updatePositions() {
     const stageRect = stage.getBoundingClientRect();
-    isMobile = window.innerWidth <= 900;
-    radius = isMobile ? 130 : 190;
-    discSize = isMobile ? 70 : 88;
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth <= 1024;
+    
+    radius = isMobile ? 130 : (isTablet ? 160 : 190);
+    discSize = isMobile ? 64 : (isTablet ? 76 : 88);
 
-    // Origin aligned with concentric gold rings (60% left)
+    // Origin aligned with gold rings (50% on mobile, 60% on desktop/tablet)
     const originX = stageRect.width * (isMobile ? 0.50 : 0.60);
     const originY = stageRect.height / 2;
 
