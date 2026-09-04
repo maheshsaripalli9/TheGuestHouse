@@ -1,0 +1,12 @@
+{
+  "name": "the-guest-house",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Guest House \u2014 social steakhouse, raw bar and wine garden. Austin, Las Vegas, Scottsdale.",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check"
+  }
+}

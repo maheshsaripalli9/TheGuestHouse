@@ -1,73 +1,83 @@
 /**
- * AEO & SEO Microdata Injector - Schema.org JSON-LD - The Guest House
+ * Schema.org JSON-LD builder — The Guest House
+ *
+ * Pure data. tools/build-schema.mjs imports this at build time and writes the
+ * result into every page's <head>, so answer engines that do not run
+ * JavaScript still see it.
  */
 
 import { LOCATIONS } from '../data/locations.js';
-import { MENU_ITEMS } from '../data/menu.js';
+import { MENU_ITEMS, MENU_CATEGORIES, MENU_SERVICES } from '../data/menu.js';
 
-export function injectAeoSchemas() {
-  const schemaScript = document.createElement('script');
-  schemaScript.type = 'application/ld+json';
+const SITE = 'https://www.welcometgh.com';
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  const restaurantSchemas = LOCATIONS.map(loc => ({
+function openingHours(location) {
+  return location.hoursSpec.map((slot) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: slot.days.map((d) => DAY_NAMES[d]),
+    opens: slot.opens,
+    // schema.org expects 23:59 rather than 24:00 for a midnight close
+    closes: slot.closes === '24:00' ? '23:59' : slot.closes
+  }));
+}
+
+function menu(location) {
+  // Sections mirror the page: services group courses, courses hold the dishes.
+  // Prices stay out — structured data should only assert what the page shows.
+  const courses = MENU_SERVICES.filter((s) => location.services.includes(s.id))
+    .flatMap((service) => service.courses)
+    .map((courseId) => ({
+      '@type': 'MenuSection',
+      name: MENU_CATEGORIES.find((c) => c.id === courseId)?.label || courseId,
+      hasMenuItem: MENU_ITEMS.filter(
+        (item) =>
+          item.category === courseId &&
+          (!item.locations || item.locations.includes(location.id))
+      ).map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        description: item.description
+      }))
+    }))
+    .filter((section) => section.hasMenuItem.length);
+
+  return {
+    '@type': 'Menu',
+    name: `${location.name} Menu`,
+    url: `${SITE}${location.menuPath}`,
+    hasMenuSection: courses
+  };
+}
+
+export function buildRestaurantSchemas() {
+  return LOCATIONS.map((location) => ({
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    '@id': `https://www.welcometgh.com/#${loc.id}`,
-    'name': loc.name,
-    'image': loc.image,
-    'url': 'https://www.welcometgh.com',
-    'telephone': loc.phone,
-    'priceRange': '$$$$',
-    'servesCuisine': ['New American', 'Steakhouse', 'Raw Bar', 'Cocktails'],
-    'address': {
+    '@id': `${SITE}/#${location.id}`,
+    name: location.name,
+    image: location.image,
+    url: `${SITE}/${location.id}/`,
+    telephone: location.phone,
+    email: location.email,
+    priceRange: '$$$$',
+    servesCuisine: ['New American', 'Steakhouse', 'Raw Bar', 'Cocktails'],
+    acceptsReservations: location.openTableUrl,
+    address: {
       '@type': 'PostalAddress',
-      'streetAddress': loc.address,
-      'addressLocality': loc.city,
-      'addressRegion': loc.state,
-      'postalCode': loc.id === 'austin' ? '78701' : (loc.id === 'las-vegas' ? '89119' : '85254'),
-      'addressCountry': 'US'
+      streetAddress: location.address,
+      addressLocality: location.city,
+      addressRegion: location.state,
+      postalCode: location.fullAddress.trim().split(' ').pop(),
+      addressCountry: 'US'
     },
-    'geo': {
+    geo: {
       '@type': 'GeoCoordinates',
-      'latitude': loc.geo.latitude,
-      'longitude': loc.geo.longitude
+      latitude: location.geo.latitude,
+      longitude: location.geo.longitude
     },
-    'openingHoursSpecification': [
-      {
-        '@type': 'OpeningHoursSpecification',
-        'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-        'opens': '16:00',
-        'closes': '22:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        'dayOfWeek': ['Friday', 'Saturday'],
-        'opens': '15:00',
-        'closes': '23:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        'dayOfWeek': ['Sunday'],
-        'opens': '11:00',
-        'closes': '22:00'
-      }
-    ],
-    'hasMenu': {
-      '@type': 'Menu',
-      'name': 'The Repertoire Menu',
-      'hasMenuItem': MENU_ITEMS.map(item => ({
-        '@type': 'MenuItem',
-        'name': item.name,
-        'description': item.description,
-        'offers': {
-          '@type': 'Offer',
-          'price': item.price,
-          'priceCurrency': 'USD'
-        }
-      }))
-    }
+    openingHoursSpecification: openingHours(location),
+    hasMenu: menu(location),
+    sameAs: ['https://www.instagram.com/welcometgh']
   }));
-
-  schemaScript.textContent = JSON.stringify(restaurantSchemas, null, 2);
-  document.head.appendChild(schemaScript);
 }

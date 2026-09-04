@@ -1,209 +1,226 @@
 /**
- * Semi-Circle Orbital Culinary Dial Engine - The Guest House
- * Continuous orbital animation, apex proximity scaling, momentum scrub, touch swipe & reservation trigger
+ * Orbital culinary dial — The Guest House
+ *
+ * Ten featured dishes ride a circle; the one at the apex is named in the
+ * teaser card. Discs are real buttons, the teaser is only rewritten when the
+ * apex dish changes, and the loop stops whenever it is off-screen, hidden, or
+ * the guest has asked for reduced motion.
  */
 
 import { MENU_ITEMS } from '../data/menu.js';
 import { openConciergeDrawer } from './reservations.js';
 
-const FALLBACK_ITEMS = [
-  { id: 'tomahawk', name: '38oz 30-Day Prime Tomahawk', image: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-  { id: 'caviar', name: 'Traditional Caviar Service', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67e6a2e983921a019c3bc1fc_The%20Guest%20House-028-Edit-%20Kieran%20Reeves%20Photography%20%5BWeb-Res%5D.jpg' },
-  { id: 'oysters', name: 'Coastal Oysters', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d760e7b8353a26440fc469_444A6464.avif' },
-  { id: 'shrimp', name: 'Shrimp Cocktail', image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=600&q=80' },
-  { id: 'hamachi', name: 'Hamachi Crudo', image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80' },
-  { id: 'rigatoni', name: 'Spicy Rigatoni', image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
-  { id: 'wagyu', name: 'Hot Rock Tableside Wagyu', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-  { id: 'mushroom', name: 'The Magic Mushroom Cocktail', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/67d761642a9764c6d415767d_444A5548.avif' },
-  { id: 'salmon', name: 'Faroe Island Salmon', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80' },
-  { id: 'margarita', name: 'GH Velvet Margarita', image: 'https://cdn.prod.website-files.com/67bb6386df4aa62305345be6/69daeebce8bb681039705771_GH%20MARGARITA%202.jpeg' }
-];
+const AMBIENT_SPEED = 0.35; // degrees per frame
+const APEX_ANGLE = 180;
+
+// The dial is a semi-circle: only the half facing the copy is drawn. Dishes
+// ride onto the arc at one end and off at the other.
+const ARC_START = 90;
+const ARC_END = 270;
+const FADE = 18; // degrees of fade at each end of the arc
 
 export function initOrbitalMenu() {
   const stage = document.getElementById('orbitalStage');
-  const teaserCard = document.getElementById('orbitalTeaser');
+  const teaser = document.getElementById('orbitalTeaser');
   if (!stage || stage.dataset.initialized === 'true') return;
   stage.dataset.initialized = 'true';
 
-  // Curated 10 Signature Highlights for smooth 3D orbital wheel
-  let filteredItems = [];
-  if (Array.isArray(MENU_ITEMS)) {
-    filteredItems = MENU_ITEMS.filter(item => item && item.image && item.featured).slice(0, 10);
-  }
-  if (!filteredItems || filteredItems.length === 0) {
-    filteredItems = FALLBACK_ITEMS;
-  }
+  const items = MENU_ITEMS.filter((item) => item?.image && item.featured).slice(0, 10);
+  if (!items.length) return;
 
-  // Geometry Parameters
-  let isMobile = window.innerWidth <= 900;
-  let radius = isMobile ? 135 : 210;
-  let discSize = isMobile ? 72 : 96;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Rotation State
-  let currentAngle = 90; // Start angle in degrees
-  let targetSpeed = 0.35; // Continuous ambient rotation speed (deg/frame)
-  let speed = targetSpeed;
+  let angle = 90;
+  let speed = AMBIENT_SPEED;
+  let dragVelocity = 0;
   let isHovered = false;
   let isDragging = false;
-  let lastMouseY = 0;
-  let velocityY = 0;
+  let lastPointerY = 0;
+  let running = false;
+  let frame = null;
 
-  // Render Dish Discs into Stage
-  function createDiscs() {
-    stage.innerHTML = `
-      <div class="orbital-ring orbital-ring-outer"></div>
-      <div class="orbital-ring orbital-ring-inner"></div>
-    `;
+  let apexId = null;
+  let geometry = readGeometry();
 
-    filteredItems.forEach((item, index) => {
-      const disc = document.createElement('div');
+  function readGeometry() {
+    const rect = stage.getBoundingClientRect();
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth <= 1024;
+    return {
+      // 44% larger than the original dial (two 20% steps).
+      radius: isMobile ? 187 : isTablet ? 230 : 274,
+      discSize: isMobile ? 92 : isTablet ? 109 : 127,
+      originX: rect.width * (isMobile ? 0.5 : 0.68),
+      originY: rect.height / 2
+    };
+  }
+
+  // ---- build -------------------------------------------------------------
+
+  const discs = [];
+
+  function build() {
+    stage.innerHTML =
+      '<div class="orbital-ring orbital-ring-outer"></div>' +
+      '<div class="orbital-ring orbital-ring-inner"></div>';
+
+    items.forEach((item, index) => {
+      const disc = document.createElement('button');
+      disc.type = 'button';
       disc.className = 'dish-disc';
       disc.dataset.id = item.id;
-      disc.dataset.index = index;
-      disc.innerHTML = `<img src="${item.image}" alt="${item.name}" class="dish-disc-img" />`;
-      
+      disc.setAttribute('aria-label', `${item.name} — reserve a table`);
+      disc.innerHTML = `<img src="${item.image}" alt="" aria-hidden="true" class="dish-disc-img" loading="lazy" />`;
+
       disc.addEventListener('click', () => {
-        // Rotate selected dish to apex (180 deg facing left)
-        const step = 360 / filteredItems.length;
-        const targetAngle = 180 - (index * step);
-        currentAngle = targetAngle;
-        updatePositions();
-        
-        // Launch concierge reservation drawer for this dish
+        angle = APEX_ANGLE - index * (360 / items.length);
+        place();
         openConciergeDrawer();
+      });
+      disc.addEventListener('focus', () => {
+        angle = APEX_ANGLE - index * (360 / items.length);
+        place();
       });
 
       stage.appendChild(disc);
+      discs.push(disc);
     });
 
-    updatePositions();
+    renderTeaser(items[0]);
+    place();
   }
 
-  // Update Disc Positions on Semi-Circle Arc
-  function updatePositions() {
-    const stageRect = stage.getBoundingClientRect();
-    const isMobile = window.innerWidth <= 768;
-    const isTablet = window.innerWidth <= 1024;
-    
-    radius = isMobile ? 130 : (isTablet ? 160 : 190);
-    discSize = isMobile ? 64 : (isTablet ? 76 : 88);
+  // ---- render ------------------------------------------------------------
 
-    // Origin aligned with gold rings (50% on mobile, 60% on desktop/tablet)
-    const originX = stageRect.width * (isMobile ? 0.50 : 0.60);
-    const originY = stageRect.height / 2;
+  function renderTeaser(item) {
+    if (!teaser || !item || item.id === apexId) return;
+    apexId = item.id;
+    teaser.innerHTML = `
+      <div class="teaser-info">
+        <span class="teaser-name">${item.name}</span>
+      </div>
+      <button type="button" class="btn-haute btn-primary-gold" data-reserve-trigger>Reserve ✦</button>
+    `;
+  }
 
-    const total = filteredItems.length;
-    const step = 360 / total;
+  function place() {
+    const { radius, discSize, originX, originY } = geometry;
+    const step = 360 / items.length;
+    let closest = null;
+    let closestDistance = Infinity;
 
-    let closestDisc = null;
-    let minDistanceToApex = Infinity;
-
-    const discs = stage.querySelectorAll('.dish-disc');
     discs.forEach((disc, index) => {
-      let angle = (currentAngle + (index * step)) % 360;
-      if (angle < 0) angle += 360;
+      let theta = (angle + index * step) % 360;
+      if (theta < 0) theta += 360;
 
-      const rad = (angle * Math.PI) / 180;
-      const x = originX + radius * Math.cos(rad);
-      const y = originY + radius * Math.sin(rad);
-
-      // Apex proximity calculation (Apex is theta = 180 deg, facing left)
-      let distFromApex = Math.abs(angle - 180);
-      if (distFromApex > 180) distFromApex = 360 - distFromApex;
-
-      let scale = 1.0;
-      if (distFromApex < 30) {
-        scale = 1.2 - (distFromApex / 30) * 0.2;
-      }
-
-      if (distFromApex < minDistanceToApex) {
-        minDistanceToApex = distFromApex;
-        closestDisc = filteredItems[index];
-      }
-
-      disc.style.transform = `translate3d(${x - discSize / 2}px, ${y - discSize / 2}px, 0) scale(${scale})`;
-      
-      if (distFromApex < 15) {
-        disc.classList.add('apex');
-      } else {
+      // Off the semi-circle: park it and skip the paint.
+      if (theta < ARC_START || theta > ARC_END) {
+        disc.style.opacity = '0';
+        disc.style.pointerEvents = 'none';
         disc.classList.remove('apex');
+        return;
+      }
+
+      const rad = (theta * Math.PI) / 180;
+      const x = originX + radius * Math.cos(rad) - discSize / 2;
+      const y = originY + radius * Math.sin(rad) - discSize / 2;
+
+      let fromApex = Math.abs(theta - APEX_ANGLE);
+      if (fromApex > 180) fromApex = 360 - fromApex;
+
+      const scale = fromApex < 30 ? 1.2 - (fromApex / 30) * 0.2 : 1;
+      const fromEdge = Math.min(theta - ARC_START, ARC_END - theta);
+      const opacity = Math.min(1, fromEdge / FADE);
+
+      disc.style.opacity = String(opacity);
+      disc.style.pointerEvents = opacity > 0.6 ? 'auto' : 'none';
+      disc.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+      disc.classList.toggle('apex', fromApex < 15);
+
+      if (fromApex < closestDistance) {
+        closestDistance = fromApex;
+        closest = items[index];
       }
     });
 
-    // Update synchronized Teaser Card
-    if (closestDisc && teaserCard) {
-      teaserCard.innerHTML = `
-        <div class="teaser-info">
-          <span class="teaser-name">${closestDisc.name}</span>
-        </div>
-        <button class="btn-haute btn-primary-gold" id="teaserReserveBtn">Reserve ✦</button>
-      `;
-      const btn = teaserCard.querySelector('#teaserReserveBtn');
-      if (btn) {
-        btn.addEventListener('click', () => openConciergeDrawer());
-      }
-    }
+    renderTeaser(closest);
   }
 
-  // Animation Loop (rAF)
-  function animate() {
-    if (!isHovered && !isDragging) {
-      currentAngle += speed;
-      // Decay velocity back to targetSpeed
-      speed += (targetSpeed - speed) * 0.05;
-    } else if (isDragging) {
-      speed = velocityY * 0.4;
-      currentAngle += speed;
+  // ---- loop --------------------------------------------------------------
+
+  function tick() {
+    if (isDragging) {
+      speed = dragVelocity * 0.4;
+    } else if (!isHovered) {
+      speed += (AMBIENT_SPEED - speed) * 0.05;
+    } else {
+      speed = 0;
     }
 
-    updatePositions();
-    requestAnimationFrame(animate);
+    angle += speed;
+    place();
+    frame = requestAnimationFrame(tick);
   }
 
-  // Event Listeners for Hover, Mouse Drag, Wheel & Touch Physics
+  function start() {
+    if (running || reduceMotion.matches) return;
+    running = true;
+    frame = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    running = false;
+    if (frame) cancelAnimationFrame(frame);
+    frame = null;
+  }
+
+  // ---- input -------------------------------------------------------------
+
   stage.addEventListener('mouseenter', () => { isHovered = true; });
   stage.addEventListener('mouseleave', () => { isHovered = false; isDragging = false; });
 
-  stage.addEventListener('mousedown', (e) => {
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
     isDragging = true;
-    lastMouseY = e.clientY;
+    lastPointerY = e.clientY;
   });
 
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener('pointermove', (e) => {
     if (!isDragging) return;
-    velocityY = e.clientY - lastMouseY;
-    lastMouseY = e.clientY;
-  });
-
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
-
-  stage.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    currentAngle += e.deltaY * 0.15;
-    updatePositions();
-  }, { passive: false });
-
-  // Mobile Touch Events
-  stage.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    lastMouseY = e.touches[0].clientY;
+    dragVelocity = e.clientY - lastPointerY;
+    lastPointerY = e.clientY;
+    if (reduceMotion.matches) {
+      angle += dragVelocity * 0.4;
+      place();
+    }
   }, { passive: true });
 
-  stage.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    velocityY = e.touches[0].clientY - lastMouseY;
-    lastMouseY = e.touches[0].clientY;
-  }, { passive: true });
+  window.addEventListener('pointerup', () => { isDragging = false; });
 
-  stage.addEventListener('touchend', () => {
-    isDragging = false;
+  let resizeFrame = null;
+  window.addEventListener('resize', () => {
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      geometry = readGeometry();
+      place();
+    });
   });
 
-  window.addEventListener('resize', updatePositions);
+  // Only animate while the dial is actually on screen and the tab is visible.
+  const observer = new IntersectionObserver(
+    ([entry]) => (entry.isIntersecting && !document.hidden ? start() : stop()),
+    { threshold: 0.05 }
+  );
+  observer.observe(stage);
 
-  // Initialize stage
-  createDiscs();
-  requestAnimationFrame(animate);
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stop() : observer.observe(stage);
+  });
+
+  reduceMotion.addEventListener('change', () => {
+    reduceMotion.matches ? stop() : start();
+  });
+
+  build();
+  start();
 }

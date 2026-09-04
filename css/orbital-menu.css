@@ -23,15 +23,35 @@
   z-index: 1;
 }
 
+.hero-bg-video,
 .hero-bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: kenBurnsZoom 26s ease-in-out infinite alternate;
-  filter: brightness(0.88) contrast(1.05) blur(1px);
-  opacity: 0.85;
-  transform: scale(1.04);
+  /* The room is meant to read as candlelit, not washed out. */
+  filter: brightness(0.72) contrast(1.10) saturate(1.05);
+  opacity: 1;
+  transform: scale(1.02);
   transform-origin: center center;
+}
+
+/* Only the still image needs the slow push; the footage already moves. */
+.hero-bg-img {
+  animation: kenBurnsZoom 26s ease-in-out infinite alternate;
+  transform: scale(1.04);
+}
+
+/* Someone who has asked for less motion gets the poster frame, held still. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-video {
+    display: none;
+  }
+
+  .hero-bg-wrapper {
+    background-image: url('/assets/video/hero-poster.jpg');
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 @keyframes kenBurnsZoom {
@@ -45,7 +65,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(250, 247, 242, 0.20) 0%, rgba(250, 247, 242, 0.40) 50%, rgba(250, 247, 242, 0.92) 100%);
+  background:
+    linear-gradient(90deg, rgba(15, 13, 11, 0.88) 0%, rgba(15, 13, 11, 0.55) 42%, rgba(15, 13, 11, 0.25) 70%),
+    linear-gradient(180deg, rgba(15, 13, 11, 0.45) 0%, rgba(15, 13, 11, 0.30) 45%, rgba(15, 13, 11, 0.96) 100%);
   z-index: 2;
 }
 
@@ -63,12 +85,13 @@
 .hero-left-col {
   padding: 2.75rem 3.25rem;
   z-index: 10;
-  background: rgba(250, 247, 242, 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  /* Smoked glass rather than frosted — it sits over a dark room. */
+  background: rgba(19, 16, 12, 0.58);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
   border-radius: 16px;
-  border: 1px solid rgba(224, 206, 170, 0.55);
-  box-shadow: 0 20px 50px rgba(18, 16, 14, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(192, 143, 74, 0.32);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(235, 220, 189, 0.14);
   margin-left: 3rem;
 }
 
@@ -97,7 +120,7 @@
   text-transform: uppercase;
   letter-spacing: -0.01em;
   width: 100%;
-  color: #12100E;
+  color: var(--text-primary);
 }
 
 .hero-headline .cormorant-gold-italic {
@@ -177,7 +200,9 @@
 .orbital-stage {
   position: relative;
   width: 100%;
-  height: 440px;
+  /* Tall enough to hold the enlarged arc; the discs at the very top and
+     bottom of the sweep are faded out anyway. */
+  height: 600px;
   user-select: none;
   cursor: grab;
 }
@@ -190,23 +215,25 @@
 .orbital-ring {
   position: absolute;
   top: 50%;
-  left: 60%;
+  left: 68%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 1.5px dashed var(--gold-heritage);
   pointer-events: none;
+  /* Only the half the dishes travel along is drawn. */
+  clip-path: inset(0 50% 0 0);
 }
 
 .orbital-ring-outer {
-  width: 380px;
-  height: 380px;
+  width: 548px;
+  height: 548px;
   opacity: 0.65;
   box-shadow: 0 0 25px rgba(140, 104, 48, 0.18);
 }
 
 .orbital-ring-inner {
-  width: 250px;
-  height: 250px;
+  width: 360px;
+  height: 360px;
   border-color: rgba(140, 104, 48, 0.45);
   opacity: 0.5;
 }
@@ -217,8 +244,8 @@
   top: 0;
   left: 0;
   z-index: 15;
-  width: 88px;
-  height: 88px;
+  width: 127px;
+  height: 127px;
   border-radius: 50%;
   background-color: #FFFFFF;
   border: 2px solid var(--gold-heritage);
@@ -269,10 +296,10 @@
 .orbital-teaser-card {
   margin-top: 0.5rem;
   margin-right: 1.5rem;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(24, 20, 15, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-linen);
+  border: 1px solid var(--border-gold-subtle);
   border-radius: 40px;
   padding: 0.65rem 1.35rem;
   box-shadow: var(--shadow-ambient);
@@ -326,19 +353,19 @@
     align-items: center;
   }
   .orbital-stage {
-    height: 360px;
+    height: 520px;
   }
   .orbital-ring-outer {
-    width: 320px;
-    height: 320px;
+    width: 461px;
+    height: 461px;
   }
   .orbital-ring-inner {
-    width: 210px;
-    height: 210px;
+    width: 302px;
+    height: 302px;
   }
   .dish-disc {
-    width: 76px;
-    height: 76px;
+    width: 109px;
+    height: 109px;
   }
   .orbital-pills-row {
     padding-right: 0;
@@ -375,8 +402,8 @@
     height: 180px;
   }
   .dish-disc {
-    width: 64px;
-    height: 64px;
+    width: 92px;
+    height: 92px;
   }
   .hero-split-layout {
     grid-template-columns: 1fr;
@@ -415,5 +442,80 @@
     width: 100%;
     padding: 0.75rem 1.25rem;
     font-size: 0.78rem;
+  }
+}
+
+
+/* ==========================================================================
+   ORBITAL DIAL — desktop only
+   The dial is an ornament; on a phone it cost a full screen of height and a
+   permanent animation loop for no informational value, so it is not rendered.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .hero-split-layout .hero-right-col,
+  .orbital-stage,
+  .orbital-teaser-card {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   MOBILE HERO
+   With the dial gone the phone hero was a text card on an empty ground. The
+   footage carries it instead: full-bleed, copy sitting directly on it.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .hero-section {
+    min-height: 84vh;
+    padding-top: 0;
+  }
+
+  .hero-split-layout {
+    grid-template-columns: 1fr;
+    min-height: 84vh;
+    align-items: end;
+  }
+
+  .hero-left-col {
+    margin: 0;
+    padding: 2rem 1.5rem calc(2rem + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(15, 13, 11, 0) 0%, rgba(15, 13, 11, 0.72) 38%, rgba(15, 13, 11, 0.94) 100%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .hero-bg-overlay {
+    background:
+      linear-gradient(180deg, rgba(15, 13, 11, 0.30) 0%, rgba(15, 13, 11, 0.22) 40%, rgba(15, 13, 11, 0.70) 100%);
+  }
+
+  .hero-headline {
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .hero-actions .btn-haute {
+    width: 100%;
+    text-align: center;
+    padding: 0.95rem 1rem;
+    white-space: nowrap;
+  }
+
+  /* Two across once the labels actually fit. */
+  @media (min-width: 460px) {
+    .hero-actions {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }

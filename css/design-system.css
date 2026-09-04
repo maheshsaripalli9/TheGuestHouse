@@ -3,39 +3,46 @@
    Light Luxury Warm Aesthetic (Vanilla Web Standards)
    ========================================================================== */
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
-
 :root {
-  /* Color Palette - Light Luxury Warm */
-  --canvas-bg: #FAF7F2;
-  --surface-cream: #F4EFE6;
-  --surface-white: #FFFFFF;
-  --surface-card: #FFFFFF;
-  --surface-overlay: rgba(250, 247, 242, 0.92);
-  
-  /* Typography Colors - High Contrast Deep Espresso & Charcoal */
-  --text-primary: #12100E;
-  --text-secondary: #2D2825;
-  --text-muted: #6B625B;
-  --text-gold-accent: #8C6830;
-  
-  /* Heritage Gold Accents */
-  --gold-heritage: #8C6830;
-  --gold-antique: #A37C3F;
-  --gold-champagne: #E0CEAA;
-  --gold-light-glow: rgba(140, 104, 48, 0.12);
-  --gold-halo: rgba(163, 124, 63, 0.35);
+  /* --------------------------------------------------------------------
+     Colour — nocturnal.
+     Sampled from the brand film: its median luminance is 56/255 and 56% of
+     its pixels sit below a quarter brightness. The hue was always right —
+     the ember/amber band at 16-34deg — so the gold carries over and only the
+     ground inverts.
+     -------------------------------------------------------------------- */
+  --canvas-bg: #0F0D0B;
+  --surface-cream: #17140F;
+  --surface-white: #1C1813;
+  --surface-card: #1C1813;
+  --surface-overlay: rgba(15, 13, 11, 0.92);
 
-  /* Hairline Linens & Borders */
-  --border-linen: #E5DDD0;
-  --border-linen-subtle: #ECE5DA;
-  --border-gold-subtle: rgba(140, 104, 48, 0.25);
-  
+  /* Typography Colours — warm bone on near-black */
+  --text-primary: #F6F1E8;
+  --text-secondary: #DCD3C5;
+  --text-muted: #A0968A;
+  --text-gold-accent: #D2A968;
+
+  /* Heritage Gold — lifted so it reads as text on a dark ground */
+  --gold-heritage: #C08F4A;
+  --gold-antique: #D2A968;
+  --gold-champagne: #EBDCBD;
+  --gold-deep: #8C6830;          /* the original, kept for gold-on-gold depth */
+  --gold-light-glow: rgba(192, 143, 74, 0.14);
+  --gold-halo: rgba(210, 169, 104, 0.35);
+
+  /* Hairlines & Borders */
+  --border-linen: #2E2822;
+  --border-linen-subtle: #241F1A;
+  --border-gold-subtle: rgba(192, 143, 74, 0.28);
+
   /* Shadows & Ambient Depth */
-  --shadow-ambient: 0 10px 30px rgba(18, 16, 14, 0.08);
-  --shadow-elevated: 0 20px 40px rgba(18, 16, 14, 0.12);
-  --shadow-glow-gold: 0 0 30px rgba(140, 104, 48, 0.2);
+  --shadow-ambient: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 20px 40px rgba(0, 0, 0, 0.55);
+  --shadow-glow-gold: 0 0 30px rgba(192, 143, 74, 0.22);
+
+  /* Ink for use ON gold surfaces */
+  --on-gold: #14100B;
 
   /* Typography Families */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -63,7 +70,10 @@
 }
 
 html, body {
-  overflow-x: hidden !important;
+  /* clip, not hidden: overflow-x:hidden makes body a scroll container, which
+     silently breaks position:sticky for every descendant. clip guards against
+     horizontal overflow without creating one. */
+  overflow-x: clip;
   width: 100%;
   max-width: 100vw;
   background-color: var(--canvas-bg);
@@ -86,7 +96,7 @@ html, body {
 /* Subtle Champagne Gold Selection */
 ::selection {
   background: var(--gold-champagne);
-  color: var(--text-primary);
+  color: var(--on-gold);
 }
 
 /* Headings Typography */
